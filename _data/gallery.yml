@@ -1,0 +1,25 @@
+# _data/gallery.yml
+# 這是您的攝影作品設定檔。
+# 請將您的照片檔案放置於 assets/image/photography/ 資料夾下，並於下方依格式新增。
+# 
+# 欄位說明：
+#   image: 相片的路徑，例如 "/assets/image/photography/photo1.jpg"
+#   title: 照片的標題 / 主題
+#   date: 拍攝時間 (年-月)
+#   location: 拍攝地點
+#   metadata: 相機拍攝參數，如 "ISO 200, f/2.8, 1/160s, 35mm"
+# 
+# 範例 (取消下方註解即可啟用)：
+# - image: "/assets/image/photography/taipei_sunset.jpg"
+#   title: "台北暮色"
+#   date: "2026-05"
+#   location: "台北 象山"
+#   metadata: "ISO 100, f/5.6, 1/250s, 24mm"
+# 
+# - image: "/assets/image/photography/latte_art.jpg"
+#   title: "晨間拉花"
+#   date: "2026-04"
+#   location: "Home Cafe"
+#   metadata: "ISO 400, f/2.0, 1/125s, 50mm"
+#
+# 目前為空狀態，網頁上會顯示引導提示，協助您放入第一張作品！

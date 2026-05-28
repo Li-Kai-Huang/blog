@@ -37,9 +37,16 @@ permalink: /projects/
       <h3 class="card-title">{{ project.title }}</h3>
       <p class="card-desc">{{ project.description }}</p>
       <div class="card-footer">
-        <a href="{{ project.url }}" target="_blank" class="github-link">
-          <i class="fab fa-github"></i> View on GitHub <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 2px;"></i>
+        {% if project.github != "" %}
+        <a href="{{ project.github }}" target="_blank" class="github-link" style="margin-right: 1.2em;">
+          <i class="fab fa-github"></i> GitHub <i class="fas fa-external-link-alt" style="font-size: 0.75em; margin-left: 2px; opacity: 0.7;"></i>
         </a>
+        {% endif %}
+        {% if project.article != "" %}
+        <a href="{{ project.article | relative_url }}" class="article-link">
+          <i class="fas fa-file-alt"></i> 閱讀報告
+        </a>
+        {% endif %}
       </div>
     </div>
     {% endfor %}

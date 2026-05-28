@@ -1,0 +1,115 @@
+---
+layout: page
+title: "攝影作品 | Photography"
+permalink: /photography/
+---
+
+<div class="gallery-container">
+  <div class="gallery-intro">
+    <p>
+      這裡記錄了我以 <strong>Ray Huang</strong> 為名所拍攝的影像作品。攝影對我而言是記錄生活光影、捕捉瞬間氛圍的一種方式，平常喜愛人文街拍、城市風景以及咖啡拉花的微距紀錄。
+    </p>
+  </div>
+
+  {% if site.data.gallery.size > 0 %}
+    <!-- Photo Grid -->
+    <div class="photo-grid">
+      {% for photo in site.data.gallery %}
+      <div class="photo-card" data-src="{{ photo.image | relative_url }}" data-title="{{ photo.title }}" data-meta="{{ photo.metadata }}" data-loc="{{ photo.location }} ({{ photo.date }})">
+        <div class="photo-wrapper">
+          <img src="{{ photo.image | relative_url }}" alt="{{ photo.title }}" class="gallery-img">
+          <div class="photo-overlay">
+            <div class="photo-info">
+              <span class="photo-loc"><i class="fas fa-map-marker-alt"></i> {{ photo.location }}</span>
+              <h4 class="photo-card-title">{{ photo.title }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <!-- Empty State Guide -->
+    <div class="gallery-guide-box">
+      <div class="guide-icon"><i class="fas fa-camera-retro"></i></div>
+      <h3>準備好展示您的作品了嗎？</h3>
+      <p>這裡即將展示您的攝影作品！請按照以下步驟新增您的照片：</p>
+      <ol class="guide-list">
+        <li>將照片檔案存放到您的專案路徑：<br><code>C:\Users\moray\Documents\blog\assets\image\photography\</code></li>
+        <li>打開設定檔 <a href="file:///C:/Users/moray/Documents/blog/_data/gallery.yml"><code>_data/gallery.yml</code></a>，取消註解範例並填入您的照片名稱與拍攝參數。</li>
+        <li>重新編譯或推送網頁，您的作品就會以精美的卡片呈現在這裡！</li>
+      </ol>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Lightbox Modal -->
+<div id="gallery-lightbox" class="lightbox-modal">
+  <span class="lightbox-close">&times;</span>
+  <div class="lightbox-content-wrapper">
+    <img class="lightbox-content" id="lightbox-img" alt="Fullscreen view">
+    <div class="lightbox-caption">
+      <h3 id="lightbox-title"></h3>
+      <p id="lightbox-meta"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const cards = document.querySelectorAll(".photo-card");
+  const lightbox = document.getElementById("gallery-lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const lightboxTitle = document.getElementById("lightbox-title");
+  const lightboxMeta = document.getElementById("lightbox-meta");
+  const closeBtn = document.querySelector(".lightbox-close");
+
+  if(cards.length > 0) {
+    cards.forEach(card => {
+      card.addEventListener("click", function() {
+        const src = this.getAttribute("data-src");
+        const title = this.getAttribute("data-title");
+        const meta = this.getAttribute("data-meta");
+        const loc = this.getAttribute("data-loc");
+
+        lightboxImg.src = src;
+        lightboxTitle.textContent = title;
+        
+        let metaHtml = "";
+        if (loc) metaHtml += `<i class="fas fa-map-marker-alt"></i> ${loc}`;
+        if (meta) {
+          if (loc) metaHtml += " &nbsp;‧&nbsp; ";
+          metaHtml += `<i class="fas fa-sliders-h"></i> ${meta}`;
+        }
+        lightboxMeta.innerHTML = metaHtml;
+
+        lightbox.classList.add("active");
+        document.body.style.overflow = "hidden"; // Disable background scrolling
+      });
+    });
+
+    // Close lightbox
+    closeBtn.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", function(e) {
+      if (e.target === lightbox || e.target === closeBtn) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard ESC close
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape" && lightbox.classList.contains("active")) {
+        closeLightbox();
+      }
+    });
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove("active");
+    document.body.style.overflow = ""; // Re-enable scrolling
+    setTimeout(() => {
+      lightboxImg.src = ""; // Clear src after transition
+    }, 300);
+  }
+});
+</script>

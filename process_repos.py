@@ -37,7 +37,9 @@ def clean_metric(val):
     val = "".join(filter(str.isdigit, val))
     return val if val else "0"
 
-processed_repos = []
+processed_projects = []
+
+# 1. Add GitHub repos
 for r in repos:
     name = r["name"]
     # Skip template training repository
@@ -86,31 +88,116 @@ for r in repos:
     stars = clean_metric(r["stars"])
     forks = clean_metric(r["forks"])
             
-    processed_repos.append({
-        "name": name,
+    processed_projects.append({
         "title": clean_name,
         "description": description,
         "language": language,
         "stars": stars,
         "forks": forks,
-        "url": r["url"],
+        "github": r["url"],
+        "article": "",
         "category": category
     })
+
+# 2. Add blog post articles as projects
+blog_articles = [
+    {
+        "title": "6-Instruction CPU",
+        "description": "設計並實作一顆單週期 6 指令 CPU，使用 Verilog 進行電路與行為模擬，包含 ROM, RAM, ALU, Register File 及控制器模組之架構設計與波形測試驗證。",
+        "language": "Verilog",
+        "stars": "0",
+        "forks": "0",
+        "github": "",
+        "article": "/verilog/2025/06/17/verilog-final-report.html",
+        "category": "academic_coursework"
+    },
+    {
+        "title": "AI 輔助分類回收系統",
+        "description": "基於 Realtek AMB82_mini 與 Google Gemini Vision API 開發的輔助回收系統，整合影像辨識與語音互動，實現垃圾分類自動辨識與語音指引。",
+        "language": "C++",
+        "stars": "0",
+        "forks": "0",
+        "github": "",
+        "article": "/AI-Class/project1/",
+        "category": "ai_ml"
+    },
+    {
+        "title": "AI 智慧監視錄影系統",
+        "description": "智慧型影像監測系統。利用 AMB82_mini 每分鐘捕捉影像並傳送至 Google Gemini Vision 進行智慧分析，僅在偵測到環境實質性變化時才記錄並儲存文字描述與影像。",
+        "language": "C++",
+        "stars": "0",
+        "forks": "0",
+        "github": "",
+        "article": "/AI-Class/project2/",
+        "category": "ai_ml"
+    },
+    {
+        "title": "AI 看圖說故事",
+        "description": "結合影像捕捉與生成式 AI 的創作系統。使用者按下按鈕拍照後，系統會將圖像傳送至 Google Gemini Vision，由 AI 即時生成童話故事並透過語音喇叭播放。",
+        "language": "C++",
+        "stars": "0",
+        "forks": "0",
+        "github": "",
+        "article": "/AI-Class/project3/",
+        "category": "ai_ml"
+    },
+    {
+        "title": "AI 輔助英語教學家教",
+        "description": "智慧英文學習助手。拍攝單字卡影像後透過 Google Gemini Vision 進行單字辨識，隨後發送至 Gemini LLM 生成英文例句，最終以 TTS 語音進行發音教學。",
+        "language": "C++",
+        "stars": "0",
+        "forks": "0",
+        "github": "",
+        "article": "/AI-Class/project4/",
+        "category": "ai_ml"
+    },
+    {
+        "title": "AI 情緒感知音樂播放器",
+        "description": "捕捉用戶面部表情並傳送至 Google Gemini 進行情緒分析（喜怒哀樂），自動從本地 SD 卡中挑選並播送最符合當前情感的音樂，提供溫暖的情緒陪伴。",
+        "language": "C++",
+        "stars": "0",
+        "forks": "0",
+        "github": "",
+        "article": "/AI-Class/project5/",
+        "category": "ai_ml"
+    },
+    {
+        "title": "AI 盲人定位導航系統",
+        "description": "專為視障人士設計的定位輔助系統。透過鏡頭掃描二維碼 (QR Code) 讀取地點資訊，並透過文字轉語音 (TTS) 技術即時播放語音位置指引。",
+        "language": "C++",
+        "stars": "0",
+        "forks": "0",
+        "github": "",
+        "article": "/AI-Class/project6/",
+        "category": "tools_utilities"
+    },
+    {
+        "title": "AI 盲人多模態視覺輔助系統",
+        "description": "整合觸摸、影像、RTC 時間與語音的多模態盲人輔助設備。拍攝環境影像與語音提問傳送給 Google Gemini 進行綜合解析，最終將環境語意透過 TTS 播報出來。",
+        "language": "C++",
+        "stars": "0",
+        "forks": "0",
+        "github": "",
+        "article": "/AI-Class/project7/",
+        "category": "ai_ml"
+    }
+]
+
+processed_projects.extend(blog_articles)
 
 # Write to yaml file manually to avoid external yaml library dependencies
 os.makedirs(os.path.dirname(output_yaml_path), exist_ok=True)
 with open(output_yaml_path, "w", encoding="utf-8") as f:
-    for item in processed_repos:
-        f.write(f"- name: \"{item['name']}\"\n")
-        f.write(f"  title: \"{item['title']}\"\n")
-        # escape double quotes in description
+    for item in processed_projects:
+        f.write(f"- title: \"{item['title']}\"\n")
         desc_escaped = item['description'].replace('"', '\\"')
         f.write(f"  description: \"{desc_escaped}\"\n")
         f.write(f"  language: \"{item['language']}\"\n")
         f.write(f"  stars: \"{item['stars']}\"\n")
         f.write(f"  forks: \"{item['forks']}\"\n")
-        f.write(f"  url: \"{item['url']}\"\n")
+        f.write(f"  github: \"{item['github']}\"\n")
+        f.write(f"  article: \"{item['article']}\"\n")
         f.write(f"  category: \"{item['category']}\"\n")
         f.write("\n")
 
-print(f"Successfully processed {len(processed_repos)} repos and generated {output_yaml_path}")
+print(f"Successfully processed {len(processed_projects)} projects and generated {output_yaml_path}")
