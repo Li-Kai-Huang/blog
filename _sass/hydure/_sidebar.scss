@@ -1,19 +1,23 @@
 .sidebar {
   color: var(--sidebar-color);
   background: center / cover;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .sidebar-shield {
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.7) 0%, rgba(30, 41, 59, 0.85) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .header {
   width: 100%;
   text-align: center;
-  text-shadow: 1px 1px 3px var(--oc-black);
-  padding: 2em;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  padding: 2.5em 2em;
 
   a {
     color: var(--oc-white);
@@ -22,32 +26,60 @@
 
 .brand-title {
   font-family: var(--brand-title-font);
-  font-size: 3em;
-  font-weight: bold;
-  line-height: 1.2;
-  letter-spacing: -1px;
+  font-size: 2.8em;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
   word-wrap: break-word;
+  background: linear-gradient(120deg, #fff 40%, #e2e8f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.2em;
 }
 
 .brand-tagline {
-  font-size: 1.5em;
-  line-height: 1.2;
-  letter-spacing: -1px;
+  font-family: var(--body-font);
+  font-size: 1.1em;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: 0;
   margin-top: 0;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .nav {
-  margin: 1em 0;
+  margin: 1.5em 0;
 }
 
 .nav-item {
-  a:hover {
-    background-color: transparent;
+  a {
+    font-family: var(--brand-title-font);
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 8px;
+    padding: 0.6em 1em;
+    margin: 0.2em 0;
+    color: rgba(255, 255, 255, 0.8) !important;
+    border-left: 2px solid transparent;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+      color: var(--oc-white) !important;
+      padding-left: 1.2em;
+      border-left-color: var(--oc-blue-4);
+    }
   }
 
   .current {
-    font-weight: bold;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    color: var(--oc-white) !important;
+    border-left-color: var(--oc-blue-4);
   }
+}
+
+.social {
+  margin-top: 1em;
 }
 
 .social-list {
@@ -57,12 +89,16 @@
 .social-item {
   a {
     background-color: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.2s ease;
+    padding: 0.5em;
 
     &:focus,
     &:hover {
-      color: var(--link-color);
-      background-color: transparent;
-      background-image: none;
+      color: var(--oc-white) !important;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transform: translateY(-2px);
     }
   }
 }
@@ -72,15 +108,18 @@
     text-align: left;
     position: absolute;
     bottom: 0;
+    padding: 3em 2.5em;
   }
 
   .nav-item a {
-    padding-left: 0;
+    display: block;
+    margin-right: 0;
   }
 
   .social-item {
+    display: inline-block;
     a {
-      padding-left: 0;
+      margin-right: 0.5em;
     }
   }
 }

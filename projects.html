@@ -1,0 +1,87 @@
+---
+layout: page
+title: "作品集 | Projects"
+permalink: /projects/
+---
+
+<div class="projects-container">
+  <p class="projects-intro">
+    這裡整理了我個人在 GitHub 上的開源專案、學術課程實作以及參與 FRC (FIRST Robotics Competition) 機器人競賽的相關代碼作品。點選下方標籤可依類型進行快速篩選。
+  </p>
+
+  <!-- Filter Controls -->
+  <div class="portfolio-filters">
+    <button class="filter-btn active" data-filter="all">全部專案 (All)</button>
+    <button class="filter-btn" data-filter="ai_ml">AI & 機器學習</button>
+    <button class="filter-btn" data-filter="robotics_frc">機器人 & FRC</button>
+    <button class="filter-btn" data-filter="tools_utilities">實用工具 & Linebot</button>
+    <button class="filter-btn" data-filter="web_dev">網頁開發</button>
+    <button class="filter-btn" data-filter="academic_coursework">學術與演算法</button>
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="portfolio-grid" id="portfolio-grid">
+    {% for project in site.data.projects %}
+    <div class="portfolio-card" data-category="{{ project.category }}">
+      <div class="card-header">
+        <span class="lang-badge lang-{{ project.language | downcase | replace: '#', 'sharp' | replace: ' ', '-' | replace: '+', 'plus' | replace: '.', 'dot' }}">{{ project.language }}</span>
+        <div class="card-metrics">
+          {% if project.stars != "0" %}
+          <span class="metric" title="Stars"><i class="fas fa-star"></i> {{ project.stars }}</span>
+          {% endif %}
+          {% if project.forks != "0" %}
+          <span class="metric" title="Forks"><i class="fas fa-code-branch"></i> {{ project.forks }}</span>
+          {% endif %}
+        </div>
+      </div>
+      <h3 class="card-title">{{ project.title }}</h3>
+      <p class="card-desc">{{ project.description }}</p>
+      <div class="card-footer">
+        <a href="{{ project.url }}" target="_blank" class="github-link">
+          <i class="fab fa-github"></i> View on GitHub <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 2px;"></i>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const filters = document.querySelectorAll(".filter-btn");
+  const cards = document.querySelectorAll(".portfolio-card");
+
+  filters.forEach(filter => {
+    filter.addEventListener("click", function() {
+      // Remove active class from all buttons
+      filters.forEach(btn => btn.classList.remove("active"));
+      this.classList.add("active");
+
+      const filterValue = this.getAttribute("data-filter");
+
+      cards.forEach(card => {
+        const category = card.getAttribute("data-category");
+        const show = (filterValue === "all" || category === filterValue);
+        if (show) {
+          card.style.display = "flex";
+          // Small delay for fade in animation
+          setTimeout(() => {
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0) scale(1)";
+          }, 50);
+        } else {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(10px) scale(0.98)";
+          // Hide after transition (300ms)
+          setTimeout(() => {
+            const currentFilter = document.querySelector(".filter-btn.active").getAttribute("data-filter");
+            if (currentFilter !== "all" && card.getAttribute("data-category") !== currentFilter) {
+              card.style.display = "none";
+            }
+          }, 300);
+        }
+      });
+    });
+  });
+});
+</script>

@@ -1,0 +1,219 @@
+/* Portfolio Page Stylesheet */
+
+.projects-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1em 0;
+}
+
+.projects-intro {
+  font-size: 1.15em;
+  line-height: 1.6;
+  color: var(--body-color-light);
+  margin-bottom: 2em;
+}
+
+/* Category Filters */
+.portfolio-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75em;
+  margin-bottom: 2.5em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.filter-btn {
+  background-color: var(--body-bg);
+  border: 1px solid var(--border-color);
+  color: var(--body-color);
+  padding: 0.6em 1.2em;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--body-font);
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+
+  &:hover {
+    border-color: var(--link-color);
+    color: var(--link-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &.active {
+    background: linear-gradient(135deg, var(--link-color) 0%, darken(#228be6, 15%) 100%);
+    border-color: transparent;
+    color: var(--oc-white);
+    box-shadow: 0 4px 12px rgba(34, 139, 230, 0.35);
+  }
+}
+
+/* Portfolio Grid */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.8em;
+  opacity: 1;
+  transition: all 0.4s ease;
+}
+
+/* Portfolio Card */
+.portfolio-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--body-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5em;
+  height: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+
+  /* Card hover state */
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06), 0 4px 8px rgba(0, 0, 0, 0.04);
+    border-color: rgba(34, 139, 230, 0.3);
+
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  /* Decorative subtle top-edge color glow on hover */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--link-color), #5c7cfa);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2em;
+}
+
+/* Language Badges */
+.lang-badge {
+  font-size: 0.75em;
+  font-weight: 600;
+  padding: 0.25em 0.75em;
+  border-radius: 50px;
+  color: var(--oc-white);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  
+  /* Fallback */
+  background-color: var(--oc-gray-6);
+
+  &.lang-python { background-color: #3572A5; }
+  &.lang-matlab { background-color: #e16737; }
+  &.lang-go { background-color: #00ADD8; }
+  &.lang-cplusplus { background-color: #f34b7d; }
+  &.lang-javascript { background-color: #f1e05a; color: var(--oc-black); }
+  &.lang-html { background-color: #e34c26; }
+  &.lang-asp.net { background-color: #178600; }
+  &.lang-java { background-color: #b07219; }
+  &.lang-jupyter-notebook { background-color: #DA5B0B; }
+  &.lang-shell { background-color: #89e051; color: var(--oc-black); }
+}
+
+.card-metrics {
+  display: flex;
+  gap: 0.8em;
+  font-size: 0.85em;
+  color: var(--body-color-light);
+
+  .metric {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    
+    i {
+      font-size: 0.9em;
+    }
+  }
+}
+
+.card-title {
+  font-family: var(--heading-font);
+  font-size: 1.35em;
+  font-weight: 600;
+  margin: 0 0 0.6em 0;
+  color: var(--heading-color);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.card-desc {
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: var(--body-color-light);
+  margin: 0 0 1.5em 0;
+  flex-grow: 1; /* Stretch description to take available height */
+}
+
+.card-footer {
+  margin-top: auto; /* Push to bottom of card */
+  padding-top: 1em;
+  border-top: 1px dashed var(--border-color);
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: 500;
+  font-size: 0.9em;
+  color: var(--link-color);
+  transition: color 0.2s ease;
+
+  i {
+    font-size: 1.1em;
+  }
+
+  &:hover {
+    color: darken(#228be6, 15%);
+    text-decoration: none;
+  }
+}
+
+/* Dark Mode Specific Adjustments */
+@media (prefers-color-scheme: dark) {
+  .portfolio-card {
+    background-color: rgba(30, 41, 59, 0.4);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+
+    &:hover {
+      background-color: rgba(30, 41, 59, 0.6);
+      border-color: rgba(34, 139, 230, 0.5);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  .github-link:hover {
+    color: lighten(#228be6, 15%);
+  }
+
+  .filter-btn.active {
+    background: linear-gradient(135deg, var(--link-color) 0%, #3b5bdb 100%);
+    box-shadow: 0 4px 12px rgba(59, 91, 219, 0.4);
+  }
+}
