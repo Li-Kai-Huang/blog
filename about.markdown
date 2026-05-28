@@ -13,7 +13,7 @@ permalink: /about/
   <hr>
 
   <p class="about-intro">
-    對科技與動手實作充滿熱情，具備 **Arduino 開發、機電整合與 AIoT 應用** 經驗。曾參與 FRC 國際機器人競賽並負責視覺辨識與 PID 控制整合，擅長跨領域問題解決。工作與學習之餘熱愛 **攝影** 與 **品味咖啡**，也喜歡打桌球、健身和桌遊。
+    對科技與動手實作充滿熱情，具備 <strong>Arduino 開發、機電整合與 AIoT 應用</strong> 經驗。曾參與 FRC 國際機器人競賽並負責視覺辨識與 PID 控制整合，擅長跨領域問題解決。工作與學習之餘熱愛 <strong>攝影</strong> 與 <strong>品味咖啡</strong>，也喜歡打桌球、健身和桌遊。
   </p>
 
   <div class="about-section">
